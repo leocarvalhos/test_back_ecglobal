@@ -4,20 +4,20 @@ import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  id: number;
+  id: string;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   nickname: string;
 
-  @Column()
+  @Column({ type: 'timestamp', nullable: false })
   birthdate: Date;
 
-  @Column({ unique: true })
+  @Column({ unique: true, nullable: false })
   email: string;
 
-  @Column()
+  @Column({ nullable: false })
   password: string;
 
   @OneToMany(() => Post, (post) => post.user)
-  post: Post[];
+  posts: Post[];
 }

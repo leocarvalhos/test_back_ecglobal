@@ -17,11 +17,11 @@ import { PostsService } from './posts.service';
 export class PostsController {
   constructor(private readonly postsService: PostsService) {}
 
-  @Post()
+  @Post(':id')
   @UseInterceptors(FileInterceptor('image'))
   async createPost(
     @UploadedFile() image: Express.Multer.File,
-    @Param(':id') id: string,
+    @Param('id') id: string,
     @Body('comment') comment: string,
   ) {
     const photo = image ? await this.postsService.uploadImage(image) : null;

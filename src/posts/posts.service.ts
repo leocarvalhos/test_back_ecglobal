@@ -22,7 +22,13 @@ export class PostsService {
   }
 
   async create(id: string, createPostDto: CreatePostDto): Promise<void> {
-    await this.postRepository.save(createPostDto);
+    console.log(id);
+    const post = {
+      comment: createPostDto.comment,
+      photo: createPostDto.photo,
+      user: { id },
+    };
+    await this.postRepository.save(post);
   }
 
   findAll() {
