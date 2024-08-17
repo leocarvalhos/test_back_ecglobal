@@ -7,15 +7,19 @@ import { UsersModule } from '../users/users.module';
 import { AuthService } from './auth.service';
 import { JwtStrategy } from './jwt.strategy';
 import { LocalStrategy } from './local.strategy';
+import { PostsModule } from 'src/posts/posts.module';
 config();
 @Module({
   imports: [
     forwardRef(() => UsersModule),
-    PassportModule,
-    JwtModule.register({
-      secret: process.env.JWT_PASS,
-      signOptions: { expiresIn: '8h' },
-    }),
+    forwardRef(() => PostsModule),
+    forwardRef(() => PassportModule),
+    forwardRef(() =>
+      JwtModule.register({
+        secret: process.env.JWT_PASS,
+        signOptions: { expiresIn: '4h' },
+      }),
+    ),
   ],
   providers: [AuthService, LocalStrategy, JwtStrategy],
   exports: [AuthService],

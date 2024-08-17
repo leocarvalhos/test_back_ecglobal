@@ -22,7 +22,6 @@ export class PostsService {
   }
 
   async create(id: string, createPostDto: CreatePostDto): Promise<void> {
-    console.log(id);
     const post = {
       comment: createPostDto.comment,
       photo: createPostDto.photo,
@@ -31,17 +30,29 @@ export class PostsService {
     await this.postRepository.save(post);
   }
 
-  findAll() {
-    return `This action returns all posts`;
+  async findAll() {
+    const allPosts = await this.postRepository.find();
+    return allPosts;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} post`;
+  async findMyPostsBy(user_id: string) {
+    const myPosts = await this.postRepository.find({
+      where: {
+        user: { id: user_id },
+      },
+    });
+    return myPosts;
+  }
+  async findUserByPostID(post_id: string) {
+    const { user } = await this.postRepository.findOne({
+      select: { user: { id: true } },
+      relations: { user: true },
+      where: { id: post_id },
+    });
+    return user.id;
   }
 
-  update(id: number, updatePostDto: UpdatePostDto) {
-    return `This action updates a #${id} post`;
-  }
+  update(id: string, updatePostDto: UpdatePostDto) {}
 
   remove(id: number) {
     return `This action removes a #${id} post`;
