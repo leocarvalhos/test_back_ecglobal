@@ -31,8 +31,12 @@ export class UsersService {
     return;
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    return await this.usersRepository.find({
+      select: {
+        nickname: true,
+      },
+    });
   }
 
   async findOneBy(email: string): Promise<User> {
