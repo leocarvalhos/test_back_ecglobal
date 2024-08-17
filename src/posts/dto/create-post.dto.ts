@@ -5,5 +5,5 @@ export class CreatePostDto {
   comment?: string;
 
   @IsString()
-  imageUrl?: string;
+  photo?: string;
 }

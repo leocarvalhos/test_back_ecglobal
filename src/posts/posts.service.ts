@@ -1,22 +1,29 @@
 import { Injectable } from '@nestjs/common';
-import { UpdatePostDto } from './dto/update-post.dto';
+import { InjectRepository } from '@nestjs/typeorm';
 import { uploadFile } from 'src/aws-s3/uploadImage';
-import { IDataUploadImage } from 'src/interfaces/IDataUploadImage';
+import { Repository } from 'typeorm';
 import { CreatePostDto } from './dto/create-post.dto';
+import { UpdatePostDto } from './dto/update-post.dto';
+import { Post } from './entities/post.entity';
 
 @Injectable()
 export class PostsService {
-  async uploadImage(image: Express.Multer.File): Promise<IDataUploadImage> {
-    const data = await uploadFile(
+  constructor(
+    @InjectRepository(Post)
+    private postRepository: Repository<Post>,
+  ) {}
+  async uploadImage(image: Express.Multer.File): Promise<string> {
+    const { url } = await uploadFile(
       image.originalname,
       image.buffer,
       image.mimetype,
     );
-
-    return data;
+    return url;
   }
 
-  async create(createPostDto: CreatePostDto) {}
+  async create(id: string, createPostDto: CreatePostDto): Promise<void> {
+    await this.postRepository.save(createPostDto);
+  }
 
   findAll() {
     return `This action returns all posts`;

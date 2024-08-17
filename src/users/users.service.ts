@@ -10,12 +10,12 @@ import { User } from './entities/user.entity';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private usersRepository: Repository<User>,
+    private userRepository: Repository<User>,
   ) {}
   async create(createUserDto: CreateUserDto): Promise<void> {
     const { email } = createUserDto;
 
-    const userAlreadyExist = await this.usersRepository.findOneBy({ email });
+    const userAlreadyExist = await this.userRepository.findOneBy({ email });
 
     if (userAlreadyExist) throw new Error('User already exist!');
 
@@ -26,13 +26,13 @@ export class UsersService {
       password: hashPassword,
     };
 
-    await this.usersRepository.save(user);
+    await this.userRepository.save(user);
 
     return;
   }
 
   async findAll() {
-    return await this.usersRepository.find({
+    return await this.userRepository.find({
       select: {
         nickname: true,
       },
@@ -40,7 +40,7 @@ export class UsersService {
   }
 
   async findOneBy(email: string): Promise<User> {
-    return await this.usersRepository.findOneBy({ email });
+    return await this.userRepository.findOneBy({ email });
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

@@ -21,11 +21,12 @@ export class PostsController {
   @UseInterceptors(FileInterceptor('image'))
   async createPost(
     @UploadedFile() image: Express.Multer.File,
+    @Param(':id') id: string,
     @Body('comment') comment: string,
   ) {
-    const { url } = image ? await this.postsService.uploadImage(image) : null;
-
-    return await this.postsService.create({ comment, imageUrl: url });
+    const photo = image ? await this.postsService.uploadImage(image) : null;
+    console.log(photo);
+    return await this.postsService.create(id, { comment, photo });
   }
 
   @Get()
