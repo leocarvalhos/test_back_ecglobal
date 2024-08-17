@@ -4,9 +4,7 @@ import { UpdatePostDto } from './dto/update-post.dto';
 
 @Injectable()
 export class PostsService {
-  create(createPostDto: CreatePostDto) {
-    return 'This action adds a new post';
-  }
+  create(createPostDto: CreatePostDto) {}
 
   findAll() {
     return `This action returns all posts`;

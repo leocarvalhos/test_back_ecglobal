@@ -8,6 +8,6 @@ export class Post {
   @Column({ type: 'varchar' })
   comment: string;
 
-  @Column({ nullable: true })
-  photo: string;
+  @Column({ type: Date, default: new Date() })
+  date: Date;
 }

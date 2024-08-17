@@ -1,10 +1,11 @@
 import { Module } from '@nestjs/common';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UsersModule } from './users/users.module';
-import { PostsModule } from './posts/posts.module';
 import { ConfigModule } from '@nestjs/config';
-import { User } from './users/entities/user.entity';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { AuthModule } from './auth/auth.module';
 import { Post } from './posts/entities/post.entity';
+import { PostsModule } from './posts/posts.module';
+import { User } from './users/entities/user.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { Post } from './posts/entities/post.entity';
       entities: [User, Post],
       synchronize: true,
     }),
+    AuthModule,
     UsersModule,
     PostsModule,
   ],
