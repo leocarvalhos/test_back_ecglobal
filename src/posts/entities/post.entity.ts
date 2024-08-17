@@ -11,6 +11,6 @@ export class Post {
   @Column({ type: 'varchar', nullable: true })
   photo: string;
 
-  @Column({ type: Date, default: new Date() })
-  date: Date;
+  @Column({ type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
+  createdAt: Date;
 }

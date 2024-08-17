@@ -1,10 +1,22 @@
 import { Injectable } from '@nestjs/common';
-import { CreatePostDto } from './dto/create-post.dto';
 import { UpdatePostDto } from './dto/update-post.dto';
+import { uploadFile } from 'src/aws-s3/uploadImage';
+import { IDataUploadImage } from 'src/interfaces/IDataUploadImage';
+import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostsService {
-  create(createPostDto: CreatePostDto) {}
+  async uploadImage(image: Express.Multer.File): Promise<IDataUploadImage> {
+    const data = await uploadFile(
+      image.originalname,
+      image.buffer,
+      image.mimetype,
+    );
+
+    return data;
+  }
+
+  async create(createPostDto: CreatePostDto) {}
 
   findAll() {
     return `This action returns all posts`;
