@@ -52,9 +52,12 @@ export class PostsService {
     return user.id;
   }
 
-  update(id: string, updatePostDto: UpdatePostDto) {}
+  async update(id: string, updatePostDto: UpdatePostDto) {
+    const update = await this.postRepository.update(id, updatePostDto);
+    return update;
+  }
 
-  remove(id: number) {
-    return `This action removes a #${id} post`;
+  async remove(id: string) {
+    return await this.postRepository.delete(id);
   }
 }

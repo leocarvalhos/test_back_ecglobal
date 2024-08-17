@@ -2,6 +2,7 @@ import { CanActivate, ExecutionContext, Injectable } from '@nestjs/common';
 import { Observable } from 'rxjs';
 import { PostsService } from 'src/posts/posts.service';
 
+//Guard de verificação para garantir que alterações e exclusões sejam feitas pelo próprio usuário.
 @Injectable()
 export class PostOwnershipGuard implements CanActivate {
   constructor(private readonly postsService: PostsService) {}

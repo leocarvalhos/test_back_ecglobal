@@ -6,9 +6,11 @@ import { Post } from './posts/entities/post.entity';
 import { PostsModule } from './posts/posts.module';
 import { User } from './users/entities/user.entity';
 import { UsersModule } from './users/users.module';
+import { CacheModule } from '@nestjs/cache-manager';
 
 @Module({
   imports: [
+    CacheModule.register({ isGlobal: true }),
     ConfigModule.forRoot({
       isGlobal: true,
     }),
