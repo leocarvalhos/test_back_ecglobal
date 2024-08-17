@@ -1,8 +1,8 @@
 import { IsString } from 'class-validator';
 
 export class CreatePostDto {
-  @IsString()
-  comment?: string;
+  @IsString({ message: 'Comment is required' })
+  comment: string;
 
   @IsString()
   photo?: string;

@@ -1,15 +1,15 @@
 import { IsDate, IsEmail, IsString } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString()
+  @IsString({ message: 'Nickname is required' })
   nickname: string;
 
-  @IsDate()
+  @IsDate({ message: 'Birthdate is required' })
   birthdate: Date;
 
   @IsEmail()
   email: string;
 
-  @IsString()
+  @IsString({ message: 'Password is required' })
   password: string;
 }
